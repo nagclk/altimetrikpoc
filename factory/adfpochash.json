@@ -1,0 +1,9 @@
+{
+	"name": "adfpochash",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "97526877-aafd-4cdd-a9c4-6852ef965012",
+		"tenantId": "77eb5bfb-90fc-4074-805f-b2bfa03bfdac"
+	}
+}

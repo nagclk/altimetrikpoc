@@ -1,0 +1,21 @@
+{
+	"name": "LS_OnPrem_SQL",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "pocsqlvm",
+			"database": "bachempoc",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "Windows",
+			"userName": "nagAdmin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4MDVjMGE3YS02ZWE3LTQ1ZGEtOTg5Yi03MmQzNDdjOGZiZDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "pocshir",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

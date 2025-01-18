@@ -1,0 +1,43 @@
+{
+	"name": "p_CARS_refresh",
+	"properties": {
+		"activities": [
+			{
+				"name": "upload new file",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 10
+				}
+			},
+			{
+				"name": "Invoke Power BI Refresh",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "upload new file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-17.southindia.logic.azure.com:443/workflows/8453dd76c1ee48eea7eb06b6f7c4e9b6/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=kBfRfMO2lSoZ4e96SY9MuMyHVmxzAM8J_JGH7gHYxVQ"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-01-18T13:13:01Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
