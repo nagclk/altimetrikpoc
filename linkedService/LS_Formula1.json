@@ -1,0 +1,10 @@
+{
+	"name": "LS_Formula1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://formula11kv.vault.azure.net/"
+		}
+	}
+}
