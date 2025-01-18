@@ -1,10 +1,6 @@
 {
 	"name": "ds_student",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "LS_OnPrem_SQL",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [
