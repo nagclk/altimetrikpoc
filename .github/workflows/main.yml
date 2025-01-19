@@ -2,6 +2,7 @@ name: Deploy ADF
 run-name: Deploy ${{ inputs.data_factory }}
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       resource_group:
@@ -37,7 +38,8 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+on:  
+workflow_dispatch:  
 jobs:
   deploy_adf:
     runs-on: ubuntu-latest
