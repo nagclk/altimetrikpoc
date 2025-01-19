@@ -2,17 +2,17 @@ name: Deploy ADF
 run-name: Deploy ${{ inputs.data_factory }}
 
 on:
-   #workflow_call:
+  workflow_call:
     inputs:
       resource_group:
         description: 'Name of resource group that contains the ADF'
         required: true
-        default: 'nagpoc'
+        default: 'rsg-demo-dev'
         type: string
       data_factory:
         description: 'Name of ADF'
         required: true
-        default: 'adfpochash'
+        default: 'adf-aurai-dev'
         type: string
       pause_triggers:
         description: 'Pause all triggers before publishing.'
@@ -37,6 +37,7 @@ on:
 permissions:
   id-token: write
   contents: read
+  
 jobs:
   deploy_adf:
     runs-on: ubuntu-latest
