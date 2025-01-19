@@ -25,12 +25,12 @@ jobs:
         - name: ARM Template Validation
           uses: aliencube/arm-ttk-actions@v0.3
           with:
-            path: /*
+            path: adfpochash/ARMTemplateForFactory.json
         - name: Upload Template as Build Artifact
           uses: actions/upload-artifact@v4
           with:
             name: ADFARMTemplate
-            path: pipeline/*
+            path: adfpochash/*
             if-no-files-found: error
           
             
