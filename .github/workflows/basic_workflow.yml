@@ -2,3 +2,7 @@ name: basic work flow
 
 on:
   workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
