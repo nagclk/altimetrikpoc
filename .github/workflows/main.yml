@@ -3,7 +3,7 @@ run-name: Deploy ${{ inputs.data_factory }}
 
 on:
   workflow_dispatch:
-  workflow_call:
+  #workflow_call:
     inputs:
       resource_group:
         description: 'Name of resource group that contains the ADF'
