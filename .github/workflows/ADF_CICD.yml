@@ -25,6 +25,7 @@ jobs:
         - name: ARM Template Validation
           uses: aliencube/arm-ttk-actions@v0.3
           with:
+            name: ADFARMTemplate
             path: adfpochash/ARMTemplateForFactory.json
         - name: Upload Template as Build Artifact
           uses: actions/upload-artifact@v4
