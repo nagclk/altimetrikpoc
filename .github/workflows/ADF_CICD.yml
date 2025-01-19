@@ -30,7 +30,7 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: ADFARMTemplate
-            path: adfpochash/ARMTemplateForFactory.json
+            path: adfpochash/*
             if-no-files-found: error
             
   # This workflow contains a single job called "build"
