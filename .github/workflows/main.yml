@@ -17,7 +17,7 @@ on:
       pause_triggers:
         description: 'Pause all triggers before publishing.'
         required: false
-        default: false
+        default: true
         type: boolean
       overwrite_references:
         description: 'Use env_mappings.json to overwrite environment specific references.'
