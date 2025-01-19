@@ -1,7 +1,7 @@
 name: basic work flow
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   deploy:
