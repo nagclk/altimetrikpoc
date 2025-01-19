@@ -18,7 +18,6 @@ jobs:
   validation:
     name: Validations
     runs-on: ubuntu-latest
-
 steps:
       -uses: actions/checkout@v2
 
