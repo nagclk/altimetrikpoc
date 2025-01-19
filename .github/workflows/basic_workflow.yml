@@ -1,1 +1,4 @@
+name: basic work flow
 
+on:
+  workflow_dispatch
