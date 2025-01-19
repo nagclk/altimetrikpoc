@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'This deploys to Production'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
 
     - name: Azure Login
       uses: Azure/login@v1.4.3
@@ -24,7 +24,7 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
         
     - name: Deploy Azure Resource Manager (ARM) Template
-      uses: Azure/arm-deploy@v1.0.6
+      uses: Azure/arm-deploy@v2
       with:
         # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
         scope: 'resourcegroup'
