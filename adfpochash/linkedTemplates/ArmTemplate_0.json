@@ -9,31 +9,12 @@
 		},
 		"LS_Data_Lake_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'"
+			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'",
+			"defaultValue": "DefaultEndpointsProtocol=https;AccountName=datalakegen2nagpoc;EndpointSuffix=core.windows.net;"
 		},
-		"databricks_UC_LS_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'databricks_UC_LS'"
-		},
-		"LS_OnPrem_SQL_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_OnPrem_SQL'"
-		},
-		"databricks_UC_LS_properties_typeProperties_existingClusterId": {
+		"LS_Formula1_properties_typeProperties_baseUrl": {
 			"type": "string",
-			"defaultValue": "1230-074831-bze09h20"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "pocsqlvm"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "bachempoc"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "nagAdmin"
+			"defaultValue": "https://formula11kv.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -250,32 +231,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_Data_Lake')]",
+			"name": "[concat(parameters('factoryName'), '/LS_Formula1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureBlobStorage",
+				"type": "AzureKeyVault",
 				"typeProperties": {
-					"connectionString": "[parameters('LS_Data_Lake_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/databricks_UC_LS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "https://adb-1229492382661240.0.azuredatabricks.net",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('databricks_UC_LS_accessToken')]"
-					},
-					"existingClusterId": "[parameters('databricks_UC_LS_properties_typeProperties_existingClusterId')]"
+					"baseUrl": "[parameters('LS_Formula1_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -289,6 +252,29 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_Data_Lake')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_Data_Lake_connectionString')]",
+					"accountKey": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_Formula1",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "datalakegen2nagpoc"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Formula1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_country')]",
@@ -325,165 +311,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_Data_Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_student1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_Data_Lake",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "student.csv",
-						"container": "bronze"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_Data_Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_OnPrem_SQL')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('LS_OnPrem_SQL_properties_typeProperties_server')]",
-					"database": "[parameters('LS_OnPrem_SQL_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": true,
-					"authenticationType": "Windows",
-					"userName": "[parameters('LS_OnPrem_SQL_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_OnPrem_SQL_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "pocshir",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/pocshir')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_student')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_OnPrem_SQL",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "slno",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "sname",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "student"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_OnPrem_SQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/copydemo')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_student",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_student1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2025-01-02T09:29:48Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_student')]",
-				"[concat(variables('factoryId'), '/datasets/ds_student1')]"
 			]
 		}
 	]

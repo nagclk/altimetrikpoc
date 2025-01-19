@@ -9,31 +9,12 @@
 		},
 		"LS_Data_Lake_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'"
+			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'",
+			"defaultValue": "DefaultEndpointsProtocol=https;AccountName=datalakegen2nagpoc;EndpointSuffix=core.windows.net;"
 		},
-		"LS_OnPrem_SQL_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_OnPrem_SQL'"
-		},
-		"databricks_UC_LS_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'databricks_UC_LS'"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_server": {
+		"LS_Formula1_properties_typeProperties_baseUrl": {
 			"type": "string",
-			"defaultValue": "pocsqlvm"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "bachempoc"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "nagAdmin"
-		},
-		"databricks_UC_LS_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "1230-074831-bze09h20"
+			"defaultValue": "https://formula11kv.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -65,23 +46,8 @@
 					"LS_Data_Lake_connectionString": {
 						"value": "[parameters('LS_Data_Lake_connectionString')]"
 					},
-					"databricks_UC_LS_accessToken": {
-						"value": "[parameters('databricks_UC_LS_accessToken')]"
-					},
-					"LS_OnPrem_SQL_password": {
-						"value": "[parameters('LS_OnPrem_SQL_password')]"
-					},
-					"databricks_UC_LS_properties_typeProperties_existingClusterId": {
-						"value": "[parameters('databricks_UC_LS_properties_typeProperties_existingClusterId')]"
-					},
-					"LS_OnPrem_SQL_properties_typeProperties_server": {
-						"value": "[parameters('LS_OnPrem_SQL_properties_typeProperties_server')]"
-					},
-					"LS_OnPrem_SQL_properties_typeProperties_database": {
-						"value": "[parameters('LS_OnPrem_SQL_properties_typeProperties_database')]"
-					},
-					"LS_OnPrem_SQL_properties_typeProperties_userName": {
-						"value": "[parameters('LS_OnPrem_SQL_properties_typeProperties_userName')]"
+					"LS_Formula1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_Formula1_properties_typeProperties_baseUrl')]"
 					}
 				}
 			},

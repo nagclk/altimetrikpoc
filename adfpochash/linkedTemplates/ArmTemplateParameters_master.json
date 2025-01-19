@@ -6,25 +6,10 @@
 			"value": "adfpochash"
 		},
 		"LS_Data_Lake_connectionString": {
-			"value": ""
+			"value": "DefaultEndpointsProtocol=https;AccountName=datalakegen2nagpoc;EndpointSuffix=core.windows.net;"
 		},
-		"LS_OnPrem_SQL_password": {
-			"value": ""
-		},
-		"databricks_UC_LS_accessToken": {
-			"value": ""
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_server": {
-			"value": "pocsqlvm"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_database": {
-			"value": "bachempoc"
-		},
-		"LS_OnPrem_SQL_properties_typeProperties_userName": {
-			"value": "nagAdmin"
-		},
-		"databricks_UC_LS_properties_typeProperties_existingClusterId": {
-			"value": "1230-074831-bze09h20"
+		"LS_Formula1_properties_typeProperties_baseUrl": {
+			"value": "https://formula11kv.vault.azure.net/"
 		},
 		"containerUri": {
 			"value": ""
