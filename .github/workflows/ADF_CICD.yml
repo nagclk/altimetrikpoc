@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'This deploys to Production'
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v4
 
     - name: Azure Login
       uses: Azure/login@v1.4.3
