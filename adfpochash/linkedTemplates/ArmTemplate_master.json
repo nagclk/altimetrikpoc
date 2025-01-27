@@ -12,13 +12,13 @@
 			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'",
 			"defaultValue": "DefaultEndpointsProtocol=https;AccountName=datalakegen2nagpoc;EndpointSuffix=core.windows.net;"
 		},
-		"LS_Formula1_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://formula11kv.vault.azure.net/"
-		},
 		"LS_DataLakeGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakegen2nagpoc.dfs.core.windows.net/"
+		},
+		"LS_Formula1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://formula11kv.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -50,11 +50,11 @@
 					"LS_Data_Lake_connectionString": {
 						"value": "[parameters('LS_Data_Lake_connectionString')]"
 					},
-					"LS_Formula1_properties_typeProperties_baseUrl": {
-						"value": "[parameters('LS_Formula1_properties_typeProperties_baseUrl')]"
-					},
 					"LS_DataLakeGen2_properties_typeProperties_url": {
 						"value": "[parameters('LS_DataLakeGen2_properties_typeProperties_url')]"
+					},
+					"LS_Formula1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_Formula1_properties_typeProperties_baseUrl')]"
 					}
 				}
 			},
