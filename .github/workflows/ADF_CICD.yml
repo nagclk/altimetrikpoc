@@ -6,7 +6,7 @@
 on:
   push:
     branches:
-      - adf_publish
+      - main
   workflow_dispatch:
 
 
@@ -32,7 +32,7 @@ jobs:
         resourceGroupName: 'nagpoc'
         # Specify the path to the ADF ARM template. In this scenario, the workflow is in the same branch, 
         # hence we only add the folder and arm template name to the path
-        template: adfpochash/adf_publish/ARMTemplateForFactory.json
+        template: adfpochash/ARMTemplateForFactory.json
         # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
         deploymentMode: Incremental
         # Supply deployment parameter values. In this simple scenario, 
