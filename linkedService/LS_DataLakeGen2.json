@@ -1,0 +1,10 @@
+{
+	"name": "LS_DataLakeGen2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://datalakegen2nagpoc.dfs.core.windows.net/"
+		}
+	}
+}
