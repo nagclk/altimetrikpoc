@@ -16,6 +16,10 @@
 			"type": "string",
 			"defaultValue": "https://formula11kv.vault.azure.net/"
 		},
+		"LS_DataLakeGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalakegen2nagpoc.dfs.core.windows.net/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -48,6 +52,9 @@
 					},
 					"LS_Formula1_properties_typeProperties_baseUrl": {
 						"value": "[parameters('LS_Formula1_properties_typeProperties_baseUrl')]"
+					},
+					"LS_DataLakeGen2_properties_typeProperties_url": {
+						"value": "[parameters('LS_DataLakeGen2_properties_typeProperties_url')]"
 					}
 				}
 			},

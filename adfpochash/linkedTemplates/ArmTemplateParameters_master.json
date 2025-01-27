@@ -11,6 +11,9 @@
 		"LS_Formula1_properties_typeProperties_baseUrl": {
 			"value": "https://formula11kv.vault.azure.net/"
 		},
+		"LS_DataLakeGen2_properties_typeProperties_url": {
+			"value": "https://datalakegen2nagpoc.dfs.core.windows.net/"
+		},
 		"containerUri": {
 			"value": ""
 		},
