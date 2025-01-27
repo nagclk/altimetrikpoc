@@ -1,0 +1,17 @@
+{
+	"name": "p_Limst_loading",
+	"properties": {
+		"activities": [
+			{
+				"name": "wait for 10 seconds",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 10
+				}
+			}
+		],
+		"annotations": []
+	}
+}
