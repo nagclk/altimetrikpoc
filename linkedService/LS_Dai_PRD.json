@@ -1,0 +1,10 @@
+{
+	"name": "LS_Dai_PRD",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://dldaiprod.dfs.core.windows.net/"
+		}
+	}
+}
