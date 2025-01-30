@@ -5,6 +5,17 @@
 			"referenceName": "LS_Dai_DataLake",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Day": {
+				"type": "string"
+			},
+			"Month": {
+				"type": "string"
+			},
+			"Year": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
