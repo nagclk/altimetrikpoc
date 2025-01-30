@@ -75,6 +75,101 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Landing to Bronze",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Source to Landing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_CarsDemo_landing",
+						"type": "DatasetReference",
+						"parameters": {
+							"Day": {
+								"value": "@formatDateTime(utcNow(),'dd')",
+								"type": "Expression"
+							},
+							"Month": {
+								"value": "@formatDateTime(utcNow(),'MM')",
+								"type": "Expression"
+							},
+							"Year": {
+								"value": "@formatDateTime(utcNow(),'yyyy')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_Dai_DL_landing",
+						"type": "DatasetReference",
+						"parameters": {
+							"Day": {
+								"value": "@formatDateTime(utcNow(),'dd')",
+								"type": "Expression"
+							},
+							"Month": {
+								"value": "@formatDateTime(utcNow(),'MM')",
+								"type": "Expression"
+							},
+							"Year": {
+								"value": "@formatDateTime(utcNow(),'yyyy')",
+								"type": "Expression"
+							},
+							"Hour": "0",
+							"Minute": "0"
+						}
+					}
+				]
 			}
 		],
 		"annotations": []
