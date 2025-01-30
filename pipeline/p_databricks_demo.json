@@ -56,7 +56,21 @@
 				"outputs": [
 					{
 						"referenceName": "ds_Dai_DL_landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Day": {
+								"value": "@formatDateTime(utcNow(),'dd')",
+								"type": "Expression"
+							},
+							"Month": {
+								"value": "@formatDateTime(utcNow(),'MM')",
+								"type": "Expression"
+							},
+							"Year": {
+								"value": "@formatDateTime(utcNow(),'yyyy')",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}

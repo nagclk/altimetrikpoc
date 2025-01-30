@@ -14,6 +14,12 @@
 			},
 			"Year": {
 				"type": "string"
+			},
+			"Hour": {
+				"type": "string"
+			},
+			"Minute": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
