@@ -69,7 +69,9 @@
 							"Year": {
 								"value": "@formatDateTime(utcNow(),'yyyy')",
 								"type": "Expression"
-							}
+							},
+							"Hour": "0",
+							"Minute": "0"
 						}
 					}
 				]
