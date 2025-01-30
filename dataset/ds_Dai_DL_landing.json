@@ -28,7 +28,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@concat('CarsDemo_',dataset().Year,dataset().Month,dataset().Day,dataset().Hour,dataset().Minute,'.csv')",
+					"value": "@concat('CarsDemo_',dataset().Year,dataset().Month,dataset().Day,'.csv')",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"
