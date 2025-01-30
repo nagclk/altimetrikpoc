@@ -12,7 +12,19 @@
 			"metadata": "Secure string for 'connectionString' of 'LS_Data_Lake'",
 			"defaultValue": "DefaultEndpointsProtocol=https;AccountName=datalakegen2nagpoc;EndpointSuffix=core.windows.net;"
 		},
+		"LS_DemoCars_src_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DemoCars_src'"
+		},
+		"LS_Dai_DataLake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dldaiprod.dfs.core.windows.net/"
+		},
 		"LS_DataLakeGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalakegen2nagpoc.dfs.core.windows.net/"
+		},
+		"LS_DemoCars_src_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakegen2nagpoc.dfs.core.windows.net/"
 		},
@@ -312,6 +324,194 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/p_databricks_demo')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Source to Landing",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_DemoCars_src",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_Dai_DL_landing",
+								"type": "DatasetReference",
+								"parameters": {
+									"Day": {
+										"value": "@formatDateTime(utcNow(),'dd')",
+										"type": "Expression"
+									},
+									"Month": {
+										"value": "@formatDateTime(utcNow(),'MM')",
+										"type": "Expression"
+									},
+									"Year": {
+										"value": "@formatDateTime(utcNow(),'yyyy')",
+										"type": "Expression"
+									},
+									"Hour": "0",
+									"Minute": "0"
+								}
+							}
+						]
+					},
+					{
+						"name": "Landing to Bronze",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Source to Landing",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_CarsDemo_landing",
+								"type": "DatasetReference",
+								"parameters": {
+									"Day": {
+										"value": "@formatDateTime(utcNow(),'dd')",
+										"type": "Expression"
+									},
+									"Month": {
+										"value": "@formatDateTime(utcNow(),'MM')",
+										"type": "Expression"
+									},
+									"Year": {
+										"value": "@formatDateTime(utcNow(),'yyyy')",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_Dai_DL_landing",
+								"type": "DatasetReference",
+								"parameters": {
+									"Day": {
+										"value": "@formatDateTime(utcNow(),'dd')",
+										"type": "Expression"
+									},
+									"Month": {
+										"value": "@formatDateTime(utcNow(),'MM')",
+										"type": "Expression"
+									},
+									"Year": {
+										"value": "@formatDateTime(utcNow(),'yyyy')",
+										"type": "Expression"
+									},
+									"Hour": "0",
+									"Minute": "0"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_DemoCars_src')]",
+				"[concat(variables('factoryId'), '/datasets/ds_Dai_DL_landing')]",
+				"[concat(variables('factoryId'), '/datasets/ds_CarsDemo_landing')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/poc-wait')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -333,6 +533,82 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_Dai_DL_landing')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_Dai_DataLake",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Day": {
+						"type": "string"
+					},
+					"Month": {
+						"type": "string"
+					},
+					"Year": {
+						"type": "string"
+					},
+					"Hour": {
+						"type": "string"
+					},
+					"Minute": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat('brnz_mfg_batch_SAP_CarsDemo_',dataset().Year,dataset().Month,dataset().Day,'.csv')",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Dai_DataLake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_DemoCars_src')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_DemoCars_src",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "carsdemo.csv",
+						"fileSystem": "carsdemo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_DemoCars_src')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_country')]",
@@ -428,6 +704,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_Dai_DataLake')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_Dai_DataLake_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_DataLakeGen2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -464,6 +753,23 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_DemoCars_src')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_DemoCars_src_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DemoCars_src_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_Formula1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -485,6 +791,73 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_CarsDemo_landing')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_Dai_DataLake",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Day": {
+						"type": "string"
+					},
+					"Month": {
+						"type": "string"
+					},
+					"Year": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat('CarsDemo_',dataset().Year,dataset().Month,dataset().Day,'.csv')",
+							"type": "Expression"
+						},
+						"fileSystem": "landing"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Make",
+						"type": "String"
+					},
+					{
+						"name": "Model",
+						"type": "String"
+					},
+					{
+						"name": "Type",
+						"type": "String"
+					},
+					{
+						"name": "Origin",
+						"type": "String"
+					},
+					{
+						"name": "DriveTrain",
+						"type": "String"
+					},
+					{
+						"name": "Length",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Dai_DataLake')]"
+			]
 		}
 	]
 }
