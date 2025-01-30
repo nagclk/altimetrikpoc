@@ -31,6 +31,10 @@
 					"value": "@concat('brnz_mfg_batch_SAP_CarsDemo_',dataset().Year,dataset().Month,dataset().Day,'.csv')",
 					"type": "Expression"
 				},
+				"folderPath": {
+					"value": "@concat('SAP/MFG/BatchProcess/Master/Batch/',dataset().Year,'/',dataset().Month,'/',concat(dataset().Day,dataset().Month,substring(dataset().Year,2,2)))",
+					"type": "Expression"
+				},
 				"fileSystem": "bronze"
 			},
 			"columnDelimiter": ",",
