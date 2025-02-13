@@ -150,24 +150,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_Dai_DL_landing",
-						"type": "DatasetReference",
-						"parameters": {
-							"Day": {
-								"value": "@formatDateTime(utcNow(),'dd')",
-								"type": "Expression"
-							},
-							"Month": {
-								"value": "@formatDateTime(utcNow(),'MM')",
-								"type": "Expression"
-							},
-							"Year": {
-								"value": "@formatDateTime(utcNow(),'yyyy')",
-								"type": "Expression"
-							},
-							"Hour": "0",
-							"Minute": "0"
-						}
+						"referenceName": "ds_Dai_DL_Bronze",
+						"type": "DatasetReference"
 					}
 				]
 			}
