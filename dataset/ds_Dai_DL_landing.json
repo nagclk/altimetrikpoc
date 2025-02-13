@@ -35,7 +35,7 @@
 					"value": "@concat('SAP/MFG/BatchProcess/Master/Batch/',dataset().Year,'/',dataset().Month,'/',concat(dataset().Day,dataset().Month,substring(dataset().Year,2,2)))",
 					"type": "Expression"
 				},
-				"fileSystem": "landing"
+				"fileSystem": "bronze"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
