@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"notebookPath": "/Users/nagclk@gmail.com/DaiProd/Notebook_Param",
 					"baseParameters": {
-						"p_tablename": "Hello World"
+						"p_filepath": "SAP/MFG/BatchProcess/Master/Batch/2025/02/130225/brnz_mfg_batch_SAP_CarsDemo_20250213.csv"
 					}
 				},
 				"linkedServiceName": {
