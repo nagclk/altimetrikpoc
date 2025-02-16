@@ -15,7 +15,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/nagclk@gmail.com/Mount_Data_Lake_DBX"
+					"notebookPath": "/Users/nagclk@gmail.com/DaiProd/Notebook_Param",
+					"baseParameters": {
+						"p_tablename": "Hello World"
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "LS_Databricks_INT",
