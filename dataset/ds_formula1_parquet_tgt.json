@@ -9,7 +9,10 @@
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": "race_results_2020.parquet",
+				"folderPath": "raceparquet",
+				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"
 		},
